@@ -9,12 +9,12 @@ proxy:
 
 hub:
   config:
-    GenericOAuthenticator:
-      login_service: "AWS Cognito"
-      username_key: "email"
-      userdata_method: "POST"
+    # GenericOAuthenticator:
+    #   login_service: "AWS Cognito"
+    #   username_key: "email"
+    #   userdata_method: "POST"
     JupyterHub:
-      authenticator_class: oauthenticator.generic.GenericOAuthenticator
+      authenticator_class: github
   nodeSelector:
     node-type: core
   image:

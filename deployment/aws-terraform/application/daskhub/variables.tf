@@ -18,14 +18,14 @@ variable "auth_domain_prefix" {
   description = "Domain prefix for Cognito OAuth"
 }
 
-variable "google_identity_client_id" {
+variable "github_oauth_client_id" {
   type = string
-  description = "Client ID for Google identity provider"
+  description = "Client ID for Github OAuth"
 }
 
-variable "google_identity_client_secret" {
+variable "github_oauth_client_secret" {
   type = string
-  description = "Client ID for Google identity provider"
+  description = "Client ID for Github OAuth"
 }
 
 variable "jupyter_notebook_s3_bucket" {

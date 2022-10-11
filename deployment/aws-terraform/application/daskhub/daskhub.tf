@@ -51,34 +51,39 @@ resource "helm_release" "jupyterhub" {
     value = var.letsencrypt_contact_email
   }
 
+  # set {
+  #   name = "hub.extraEnv.OAUTH_CALLBACK_URL"
+  #   value = "https://${local.jupyter_dns_prefix}.${var.r53_public_hosted_zone}/hub/oauth_callback"
+  # }
+
+  # set {
+  #   name = "hub.extraEnv.OAUTH2_AUTHORIZE_URL"
+  #   value = "https://${local.cognito_domain}/oauth2/authorize"
+  # }
+
+  # set {
+  #   name = "hub.extraEnv.OAUTH2_TOKEN_URL"
+  #   value = "https://${local.cognito_domain}/oauth2/token"
+  # }
+
+  # set {
+  #   name = "hub.extraEnv.OAUTH2_USERDATA_URL"
+  #   value = "https://${local.cognito_domain}/oauth2/userInfo"
+  # }
+
   set {
-    name = "hub.extraEnv.OAUTH_CALLBACK_URL"
+    name = "hub.config.GitHubOAuthenticator.client_id"
+    value = var.github_oauth_client_id
+  }
+
+  set {
+    name = "hub.config.GitHubOAuthenticator.client_secret"
+    value = var.github_oauth_client_secret
+  }
+
+  set {
+    name = "hub.config.GitHubOAuthenticator.oauth_callback_url"
     value = "https://${local.jupyter_dns_prefix}.${var.r53_public_hosted_zone}/hub/oauth_callback"
-  }
-
-  set {
-    name = "hub.extraEnv.OAUTH2_AUTHORIZE_URL"
-    value = "https://${local.cognito_domain}/oauth2/authorize"
-  }
-
-  set {
-    name = "hub.extraEnv.OAUTH2_TOKEN_URL"
-    value = "https://${local.cognito_domain}/oauth2/token"
-  }
-
-  set {
-    name = "hub.extraEnv.OAUTH2_USERDATA_URL"
-    value = "https://${local.cognito_domain}/oauth2/userInfo"
-  }
-
-  set {
-    name = "hub.config.GenericOAuthenticator.client_id"
-    value = aws_cognito_user_pool_client.client.id
-  }
-
-  set {
-    name = "hub.config.GenericOAuthenticator.client_secret"
-    value = aws_cognito_user_pool_client.client.client_secret
   }
 }
 

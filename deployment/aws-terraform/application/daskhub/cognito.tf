@@ -33,7 +33,7 @@ resource "aws_cognito_resource_server" "resource" {
 
 resource "aws_cognito_user_pool_client" "client" {
   name = "${local.cluster_name}-client"
-  depends_on = [aws_cognito_identity_provider.provider]
+  # depends_on = [aws_cognito_identity_provider.provider]
 
   generate_secret = true
   user_pool_id = aws_cognito_user_pool.pool.id
@@ -42,22 +42,22 @@ resource "aws_cognito_user_pool_client" "client" {
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows = ["code", "implicit"]
   allowed_oauth_scopes = ["email", "openid"]
-  supported_identity_providers = ["COGNITO", "Google"]
+  supported_identity_providers = ["COGNITO"]
 }
 
-resource "aws_cognito_identity_provider" "provider" {
-  user_pool_id = aws_cognito_user_pool.pool.id
-  provider_name = "Google"
-  provider_type = "Google"
+# resource "aws_cognito_identity_provider" "provider" {
+#   user_pool_id = aws_cognito_user_pool.pool.id
+#   provider_name = "Google"
+#   provider_type = "Google"
 
-  provider_details = {
-    authorize_scopes = "email"
-    client_id = var.google_identity_client_id
-    client_secret = var.google_identity_client_secret
-  }
+#   provider_details = {
+#     authorize_scopes = "email"
+#     client_id = var.google_identity_client_id
+#     client_secret = var.google_identity_client_secret
+#   }
 
-  attribute_mapping = {
-    email    = "email"
-    username = "sub"
-  }
-}
+#   attribute_mapping = {
+#     email    = "email"
+#     username = "sub"
+#   }
+# }
