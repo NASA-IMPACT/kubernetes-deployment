@@ -21,6 +21,10 @@ module "iam_assumable_role_karpenter" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:karpenter:karpenter"]
 }
 
+resource "aws_iam_service_linked_role" "spot" {
+  aws_service_name = "spot.amazonaws.com"
+}
+
 resource "aws_iam_role_policy" "karpenter_controller" {
   name = "karpenter-policy-${local.cluster_name}"
   role = module.iam_assumable_role_karpenter.iam_role_name
